@@ -1,4 +1,4 @@
-import { getDocument } from "pdfjs-dist";
+import * as pdfjsLib from "pdfjs-dist";
 
 export default async function handler(req: any, res: any) {
   const { method } = req;
@@ -6,7 +6,7 @@ export default async function handler(req: any, res: any) {
   if (method === "POST") {
     try {
       const fileUrl = req.body.fileURL;
-      const loadingTask = getDocument(`${fileUrl}`);
+      const loadingTask = pdfjsLib.getDocument(`${fileUrl}`);
       const pdf = await loadingTask.promise;
       const maxPages = pdf.numPages;
       let rawText = "";
