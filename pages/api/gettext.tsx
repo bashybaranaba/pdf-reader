@@ -3,7 +3,7 @@ import * as pdfjsLib from "pdfjs-dist";
 export default async function handler(req: any, res: any) {
   const { method } = req;
 
-  if (method === "POST") {
+  if (method === "GET") {
     try {
       const fileUrl = req.body.fileURL;
       const loadingTask = pdfjsLib.getDocument(`${fileUrl}`);
@@ -21,7 +21,7 @@ export default async function handler(req: any, res: any) {
 
       res.status(200).json({ success: true, text: rawText });
     } catch (err) {
-      console.log(err);
+      res.status(500).json(err);
     }
   }
 }
